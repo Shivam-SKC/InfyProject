@@ -31,10 +31,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	 }
 	 
 	@Override
-	 public Employee getEmployee(Integer empid) throws EmployeeException{
+	 public EmployeeDTO getEmployee(Integer empid) throws EmployeeException{
 		 Optional<Employee> op=repo.findById(empid);
 		 Employee e=op.orElseThrow(()->new EmployeeException("Employee not found"));
-		return e;
+		 EmployeeDTO eDTO=new EmployeeDTO();
+		 eDTO.setEmployeeId(e.getEmployeeId());
+		 eDTO.setName(e.getName());
+		 eDTO.setLevel(e.getLevel());
+		return eDTO;
 		 
 	 }
 	@Override

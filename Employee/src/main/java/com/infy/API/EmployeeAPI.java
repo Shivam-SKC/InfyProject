@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.infy.DTO.EmployeeDTO;
-import com.infy.entity.Employee;
 import com.infy.exception.EmployeeException;
 import com.infy.service.EmployeeService;
 
@@ -33,7 +32,7 @@ public class EmployeeAPI {
 	}
 	
 	@GetMapping("/getEmployee/{employeeId}")
-	public ResponseEntity<Employee> getEmployee(@PathVariable Integer employeeId)throws EmployeeException{
+	public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable Integer employeeId)throws EmployeeException{
 		return new ResponseEntity<>(service.getEmployee(employeeId),HttpStatus.OK);
 	}
 	
