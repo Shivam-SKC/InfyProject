@@ -26,7 +26,6 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @CrossOrigin
-@Validated
 @RequestMapping(value="/Employee")
 public class EmployeeAPI {
 	@Autowired
