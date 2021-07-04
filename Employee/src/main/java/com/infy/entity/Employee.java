@@ -14,6 +14,18 @@ public class Employee {
 	private String name;
 	private Integer level;
 	
+	
+	public Employee() {
+		
+	}
+
+	public Employee(Integer employeeId, String name, Integer level) {
+		super();
+		this.employeeId = employeeId;
+		this.name = name;
+		this.level = level;
+	}
+	
 	public Integer getEmployeeId() {
 		return employeeId;
 	}
