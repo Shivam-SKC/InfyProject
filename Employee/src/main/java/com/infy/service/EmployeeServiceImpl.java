@@ -3,7 +3,6 @@ package com.infy.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +12,6 @@ import com.infy.exception.EmployeeException;
 import com.infy.repository.EmployeeRepository;
 
 @Service(value = "employeeService")
-@PropertySource("classpath:validation.properties")
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -23,6 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	// adding new employee
 	@Override
 	public Integer addEmployee(EmployeeDTO employeeDTO) throws EmployeeException {
+
 		Employee e = new Employee();
 		e.setName(employeeDTO.getName());
 		e.setLevel(employeeDTO.getLevel());

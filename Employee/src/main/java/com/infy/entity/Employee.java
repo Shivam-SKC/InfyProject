@@ -44,10 +44,11 @@ public class Employee {
 	public void setLevel(Integer level) {
 		this.level = level;
 	}
+
 	@Override
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", name=" + name + ", level=" + level + "]";
 	}
-	
+
 
 }
