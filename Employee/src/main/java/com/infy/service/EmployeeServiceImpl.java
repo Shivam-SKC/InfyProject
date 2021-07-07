@@ -21,7 +21,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	// adding new employee
 	@Override
 	public Integer addEmployee(EmployeeDTO employeeDTO) throws EmployeeException {
-
 		Employee e = new Employee();
 		e.setName(employeeDTO.getName());
 		e.setLevel(employeeDTO.getLevel());
