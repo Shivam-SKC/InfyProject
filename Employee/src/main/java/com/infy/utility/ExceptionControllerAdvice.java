@@ -28,20 +28,21 @@ public class ExceptionControllerAdvice {
 	public ResponseEntity<ErrorInfo> EmployeeExceptionHandler(EmployeeException exception) {
 		LOGGER.error(exception.getMessage(), exception);
 		ErrorInfo errorInfo = new ErrorInfo();
-		errorInfo.setErrorCode(HttpStatus.BAD_REQUEST.value());
+		errorInfo.setErrorCode(HttpStatus.NOT_FOUND.value());
 		errorInfo.setErrorMessage(environment.getProperty(exception.getMessage()));
-		return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(errorInfo, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorInfo> generalExceptionHandler(Exception exception) {
 		LOGGER.error(exception.getMessage(), exception);
 		ErrorInfo errorInfo = new ErrorInfo();
-		errorInfo.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		errorInfo.setErrorCode(HttpStatus.BAD_REQUEST.value());
 		errorInfo.setErrorMessage(environment.getProperty("General.EXCEPTION_MESSAGE"));
-		return new ResponseEntity<>(errorInfo, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
 	}
 
+	// handleMethodArgumentNotValid : triggers when @Valid fails
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErrorInfo> exceptionHandler(MethodArgumentNotValidException exception) {
 		ErrorInfo errorInfo = new ErrorInfo();
@@ -53,6 +54,7 @@ public class ExceptionControllerAdvice {
 		return new ResponseEntity<>(errorInfo, HttpStatus.BAD_REQUEST);
 	}
 
+	// handleConstraintViolationException : triggers when @Validated fails
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<ErrorInfo> pathExceptionHandler(ConstraintViolationException exception) {
 		ErrorInfo errorInfo = new ErrorInfo();
