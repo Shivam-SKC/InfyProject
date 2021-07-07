@@ -1,11 +1,13 @@
 package com.infy.API;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @CrossOrigin
+@Validated
 @RequestMapping(value="/Employee")
 public class EmployeeAPI {
 	@Autowired
@@ -43,12 +46,12 @@ public class EmployeeAPI {
 	}
 	
 	@GetMapping("/{employeeId}")
-	public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable Integer employeeId)throws EmployeeException{
+	public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable @Min(100) Integer employeeId)throws EmployeeException{
 		return new ResponseEntity<>(service.getEmployee(employeeId),HttpStatus.OK);
 	}
 	
 	@PutMapping("/{employeeId}")
-	public ResponseEntity<String> updateEmployee(@PathVariable Integer employeeId,@Valid @RequestBody EmployeeDTO employeeDTO)throws EmployeeException{
+	public ResponseEntity<String> updateEmployee(@PathVariable @Min(100) Integer employeeId,@Valid @RequestBody EmployeeDTO employeeDTO)throws EmployeeException{
 		service.updateEmployee(employeeId,employeeDTO);
 		String SuccessMessage=environment.getProperty("API.UPDATE_SUCCESS")+employeeId;
 		return new ResponseEntity<String>(SuccessMessage,HttpStatus.ACCEPTED);
@@ -57,7 +60,7 @@ public class EmployeeAPI {
 	
 	@DeleteMapping("/{employeeId}")
 	@ApiOperation(value = "Deleting employee details", notes = "Give a employee id to delete the details of an employee", response = Employee.class)
-	public ResponseEntity<String> deleteEmployee( @PathVariable Integer employeeId)throws EmployeeException{
+	public ResponseEntity<String> deleteEmployee( @PathVariable @Min(100) Integer employeeId)throws EmployeeException{
 		Integer empId=service.deleteEmployee(employeeId);
 		String SuccessMessage=environment.getProperty("API.DELETE_SUCCESS")+empId;
 		return new ResponseEntity<String>(SuccessMessage,HttpStatus.OK);
