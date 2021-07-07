@@ -38,7 +38,7 @@ public class EmployeeAPI {
 
 	
 	@PostMapping("/")
-	public ResponseEntity<String> addEmployee( @Valid @RequestBody EmployeeDTO employeeDTO) throws EmployeeException{
+	public ResponseEntity<String> addEmployee( @Valid @RequestBody EmployeeDTO employeeDTO){
 		Integer empid=service.addEmployee(employeeDTO);
 		String Successmessage=environment.getProperty("API.INSERT_SUCCESS")+empid;
 		return new ResponseEntity<>(Successmessage,HttpStatus.CREATED);
